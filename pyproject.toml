@@ -8,6 +8,11 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 django = "^4.1.7"
+psycopg2 = "^2.9.5"
+environs = {extras = ["django"], version = "^9.5.0"}
+django-allauth = "^0.52.0"
+django-crispy-forms = "^2.0"
+crispy-bootstrap5 = "^0.7"
 
 
 [build-system]
