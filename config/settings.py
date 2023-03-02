@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     # local
     'accounts.apps.AccountsConfig',
+    'book.apps.BookConfig',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,7 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Pillow config
+MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_URL = 'uploads/'
