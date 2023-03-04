@@ -1,0 +1,60 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="container py-2">
+        <div class="h1 text-center text-dark" id="pageHeaderTitle">All books</div>
+
+        {% for book in books %}
+            <article class="postcard light blue">
+                <a class="postcard__img_link" href="#">
+                    <img class="postcard__img" src="{{ book.cover.url}}" alt="{{ book.title }}"/>
+                </a>
+                <div class="postcard__text t-dark">
+                    <h1 class="postcard__title blue"><a href="#"></a></h1>
+                    <div class="postcard__subtitle small">
+                        <time datetime="{{ book.published_date}}">
+                            <i class="fas fa-calendar-alt mr-2"></i>{{ book.published_date }}
+                        </time>
+                    </div>
+                    <div class="postcard__bar"></div>
+                    <div class="postcard__preview-txt">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Eligendi, fugiat asperiores inventore beatae accusamus odit minima enim, commodi quia, doloribus
+                        eius! Ducimus nemo accusantium maiores velit corrupti tempora reiciendis molestiae repellat
+                        vero. Eveniet ipsam adipisci illo iusto quibusdam, sunt neque nulla unde ipsum dolores nobis
+                        enim quidem excepturi, illum quos!
+                    </div>
+                    <ul class="postcard__tagbox">
+                        <li class="tag__item"><i class="fas fa-tag mr-2"></i>Podcast</li>
+                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                        <li class="tag__item play blue">
+                            <a href="#"><i class="fa fa-book mr-2"></i>Read online</a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+        {% endfor %}
+
+        {#    {% for book in books %}#}
+        {#        <div class="container-fluid mt-5">#}
+        {#            <div class="card" style="width: 25rem;">#}
+        {#                <img src="{{ book.cover.url }}" class="card-img-top" alt="{{ book.title }}">#}
+        {#                <div class="card-body">#}
+        {#                    <h5 class="card-title">{{ book.title}}</h5>#}
+        {#                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the#}
+        {#                        card's content.</p>#}
+        {#                </div>#}
+        {#                <ul class="list-group list-group-flush">#}
+        {#                    <li class="list-group-item text-primary">Date: {{ book.published_date|date:"d"}}</li>#}
+        {#                    <li class="list-group-item text-primary">Language: <span class="text-uppercase">{{ book.language }}</span></li>#}
+        {#                    <li class="list-group-item"><span class="text-primary">Pages: {{ book.total_pages}}</span></li>#}
+        {#                </ul>#}
+        {#                <div class="card-body btn btn-outline-warning text-center">#}
+        {#                    <a href="{{ book.pdf.url }}" class="card-link text-capitalize link-success text-decoration-none">#}
+        {#                        {{ book.title }}#}
+        {#                    </a>#}
+        {#                </div>#}
+        {#            </div>#}
+        {#        </div>#}
+        {#        <hr>#}
+        {#    {% endfor %}#}
+{% endblock %}
