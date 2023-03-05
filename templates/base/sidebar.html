@@ -3,12 +3,13 @@
 <nav id="sidebar">
     <div class="p-4 pt-5">
         <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(
-                {% if user_photo %}
-                    {% static user_photo.url %})
-                {% else %}
-                    {% static 'img/default_avatar.svg' %})
-                {% endif %}">
-        </a>
+            {% if user_photo %}
+                {% static user_photo.url %}
+            {% else %}
+                {% static 'img/default_avatar.svg' %}
+            {% endif %}
+                )">
+            </a>
         <ul class="list-unstyled components mb-5">
             <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>

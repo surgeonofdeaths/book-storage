@@ -1,5 +1,29 @@
 {% extends '_base.html' %}
 
 {% block content %}
-    {{ book.title }}
+    <article class="postcard light blue">
+        <a class="postcard__img_link" href="{{ book.get_absolute_url }}">
+            <img class="postcard__img" src="{{ book.cover.url }}" alt="{{ book.title }}"/>
+        </a>
+        <div class="postcard__text t-dark">
+            <h1 class="postcard__title blue"><a href="#"></a></h1>
+            <div class="postcard__subtitle small">
+                <time datetime="{{ book.published_date }}">
+                    <i class="fas fa-calendar-alt mr-2"></i>{{ book.published_date|date:"M d, Y" }}
+                </time>
+            </div>
+            <div class="postcard__bar"></div>
+            <div class="postcard__preview-txt">{{ book.content|truncatewords:50 }}
+            </div>
+            <ul class="postcard__tagbox">
+                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                {% for topic in book.topics.all %}
+                    <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ topic }}</li>
+                {% endfor %}
+                <li class="tag__item play blue">
+                    <a href="{{ book.pdf.url }}"><i class="fa fa-book mr-2"></i>Read online</a>
+                </li>
+            </ul>
+        </div>
+    </article>
 {% endblock content %}

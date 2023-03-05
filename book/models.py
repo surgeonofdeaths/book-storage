@@ -63,7 +63,7 @@ class Book(models.Model):
     author = models.ForeignKey(
         Author, default='unknown', on_delete=models.SET_DEFAULT, related_name='books', verbose_name='Автор книги'
     )
-    genre = models.ManyToManyField(Topic, related_name='select_books', verbose_name='Топики')
+    topics = models.ManyToManyField(Topic, related_name='select_books', verbose_name='Топики')
 
     class Meta:
         verbose_name = 'Книга'
