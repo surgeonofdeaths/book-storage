@@ -1,4 +1,8 @@
+from django.template.defaultfilters import slugify
+from django.db import models
+
 from copy import deepcopy
+
 
 header_menu = [
     {'title': 'Home', 'url': 'home', 'selected': 0},
@@ -33,3 +37,6 @@ class DataMixin(_FetchData):
         common_context = self.get_common_context(**context)
         context.update(common_context)
         return context
+
+
+

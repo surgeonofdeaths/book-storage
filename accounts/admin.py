@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import gettext_lazy as _
 
-from .models import CustomUser, Profile
+from .models import CustomUser
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
@@ -13,18 +14,30 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('is_staff', 'username', 'email')
     search_fields = ('username', 'email')
     list_display_links = ('username', 'email')
+    prepopulated_fields = {'slug': ('username',)}
 
-    add_fieldsets = (
+    fieldsets = (
+        (None, {"fields": ("username", "slug", "password")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
-            None,
+            _("Permissions"),
             {
-                'classes': ('wide',),
-                'fields': ('username', 'email', 'password1', 'password2'),
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
             },
         ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
 
-
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'gender']
+    add_fieldsets = (
+        None,
+        {
+            'classes': ('wide',),
+            'fields': ('username', 'slug', 'email', 'password1', 'password2'),
+        },
+    )

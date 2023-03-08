@@ -13,13 +13,14 @@
                 </time>
             </div>
             <div class="postcard__bar"></div>
-            <div class="postcard__preview-txt">{{ book.content|truncatewords:50 }}
+            <div class="postcard__preview-txt">{{ book.content }}
             </div>
             <ul class="postcard__tagbox">
                 <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
                 {% for topic in book.topics.all %}
                     <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ topic }}</li>
                 {% endfor %}
+                <span class="blank"></span>
                 <li class="tag__item play blue">
                     <a href="{{ book.pdf.url }}"><i class="fa fa-book mr-2"></i>Read online</a>
                 </li>

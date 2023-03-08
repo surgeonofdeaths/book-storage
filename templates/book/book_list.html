@@ -24,6 +24,8 @@
                         {% for topic in book.topics.all %}
                             <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ topic }}</li>
                         {% endfor %}
+                        <span class="blank"></span>
+
                         <li class="tag__item play blue">
                             <a href="{{ book.pdf.url }}"><i class="fa fa-book mr-2"></i>Read online</a>
                         </li>

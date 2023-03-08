@@ -6,7 +6,7 @@ from common.utils import DataMixin
 
 
 class HomeTemplateView(DataMixin, TemplateView):
-    template_name = '_base.html'
+    template_name = 'book/home.html'
 
     def get_context_data(self, **kwargs):
         new_context = {'title': 'Home Page'}

@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # local
     'accounts.apps.AccountsConfig',
     'book.apps.BookConfig',
+    'user_profile.apps.UserProfileConfig',
 ]
 
 MIDDLEWARE = [

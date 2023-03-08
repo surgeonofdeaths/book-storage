@@ -49,10 +49,10 @@ class Book(models.Model):
     ]
 
     title = models.CharField(max_length=200, verbose_name='Название')
-    slug = models.SlugField(null=True, unique=True, verbose_name='SLUG')
+    slug = models.SlugField(unique=True, verbose_name='SLUG')
     content = models.TextField(null=True, verbose_name='Описание')
     cover = models.ImageField(upload_to='covers/', blank=True, null=True, verbose_name='Обложка')
-    pdf = models.FileField(upload_to='books/', blank=True, null=True, verbose_name='PDF')
+    pdf = models.FileField(max_length=150, upload_to='books/', blank=True, null=True, verbose_name='PDF')
     total_pages = models.PositiveIntegerField(blank=True, null=True, verbose_name='Количество страниц')
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=25, verbose_name='Язык')
     published_date = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано')
