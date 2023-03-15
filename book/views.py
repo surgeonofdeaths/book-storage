@@ -9,7 +9,7 @@ class HomeTemplateView(DataMixin, TemplateView):
     template_name = 'book/home.html'
 
     def get_context_data(self, **kwargs):
-        new_context = {'title': 'Home Page'}
+        new_context = {'title': 'Home Page', 'selected': 'home'}
         context = super().get_context_data(**new_context, **kwargs)
         return context
 
@@ -23,6 +23,9 @@ class BookListView(LoginRequiredMixin, DataMixin, ListView):
         new_context = {'title': 'All Books', 'selected': 'books'}
         context = super().get_context_data(**new_context, **kwargs)
         return context
+
+    def get_queryset(self):
+        return Book.objects.all().prefetch_related('topics')
 
 
 class BookDetailView(LoginRequiredMixin, DataMixin, DetailView):

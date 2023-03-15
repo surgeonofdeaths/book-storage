@@ -3,11 +3,11 @@ from django.db import models
 
 from django.urls import reverse
 
-MALE = 'male'
-FEMALE = 'female'
+MALE = 'Male'
+FEMALE = 'Female'
 
 GENDERS = [
-    (None, 'Not stated'),
+    ('', 'Not stated'),
     (MALE, 'Male'),
     (FEMALE, 'Female'),
 ]

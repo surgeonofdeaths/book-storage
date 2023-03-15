@@ -14,7 +14,7 @@ header_menu = [
 class _FetchData:
     def get_common_context(self, **kwargs):
         context = kwargs
-        context['selected'] = context.get('selected', 'home')
+        context['selected'] = context.get('selected', None)
         header_menu_copy = deepcopy(header_menu)
         if self.request.user.is_authenticated:
             header_menu_copy.append({'title': 'Logout', 'url': 'account_logout', 'selected': 0})
@@ -33,10 +33,10 @@ class _FetchData:
 
 class DataMixin(_FetchData):
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        try:
+            context = super().get_context_data(**kwargs)
+        except AttributeError:
+            context = kwargs
         common_context = self.get_common_context(**context)
         context.update(common_context)
         return context
-
-
-

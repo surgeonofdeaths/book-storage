@@ -1,4 +1,8 @@
+from django.contrib.messages import constants as messages
+
 from pathlib import Path
+
+from django.urls import reverse
 from environs import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +26,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     # 3rd party
+    'widget_tweaks',
+    'debug_toolbar',
     'crispy_forms',
     'crispy_bootstrap5',
     'allauth',
@@ -36,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,8 +127,21 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Pillow config
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL = 'uploads/'
+
+# django-debug-toolbar config
+INTERNAL_IPS = ['127.0.0.1']
+
+# messages config
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}

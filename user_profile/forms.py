@@ -8,19 +8,20 @@ User = get_user_model()
 
 
 class ProfileForm(ModelForm):
-    gender = forms.ChoiceField(choices=GENDERS)
-    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
-    bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+    gender = forms.ChoiceField(required=False, choices=GENDERS)
+    avatar = forms.ImageField(required=False)
+    bio = forms.CharField(required=False, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
 
     class Meta:
         model = Profile
-        fields = ['gender', 'avatar', 'bio']
+        fields = ['avatar', 'gender', 'bio']
 
 
 class UserForm(ModelForm):
-    username = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    username = forms.CharField(max_length=100)
+    email = forms.EmailField(required=False)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name']
+
