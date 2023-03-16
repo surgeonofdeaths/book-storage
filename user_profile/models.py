@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.db import models
-
 from django.urls import reverse
+
+from PIL import Image
 
 MALE = 'Male'
 FEMALE = 'Female'
@@ -36,3 +37,11 @@ class Profile(models.Model):
         if not self.id:
             self.slug = self.user.slug
         super().save(*args, **kwargs)
+
+        if self.avatar:
+            img = Image.open(self.avatar.path)
+
+            if img.height > 300 or img.width > 300:
+                size = (300, 300)
+                img.thumbnail(size)
+                img.save(self.avatar.path)

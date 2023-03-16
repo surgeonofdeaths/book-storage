@@ -1,0 +1,34 @@
+{% load widget_tweaks %}
+{#aria-label="select gender"#}
+
+{% for f in form %}
+    {% if f.field.widget.input_type == 'select' %}
+        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+        <select class="custom-select" id="{{ f.id_for_label }}" name="{{ f.name }}">
+            {% for value, select_item in f.field.choices %}
+                {% if f.initial == value %}
+                    <option selected value="{{ value }}">{{ select_item }}</option>
+                {% else %}
+                    <option value="{{ value }}">{{ select_item }}</option>
+                {% endif %}
+            {% endfor %}
+            {% for error in f.errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+        </select>
+        {% for error in f.errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+        <p class="text-danger">{{ f.field.errors }}</p>
+    {% elif f.widget_type == 'textarea' %}
+        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+        <textarea name="{{ f.name }}" placeholder="{{ f.label }}" cols="40" rows="5" class="form-control"
+                  id="{{ f.id_for_label }}">{{ f.initial }}</textarea>
+    {% elif f.label != 'Avatar' %}
+        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+        {% render_field f placeholder=f.label class+="form-control" %}
+        {% for error in f.errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+{% endfor %}

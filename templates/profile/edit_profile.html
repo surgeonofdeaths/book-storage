@@ -1,8 +1,7 @@
 {% extends '_base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% load widget_tweaks %}
-
+{% load profile_tags %}
 
 {% block content %}
     <form method="post" enctype="multipart/form-data">
@@ -23,49 +22,54 @@
                     <input class="file-upload" name="{{ profile_form.avatar.name }}" type="file" accept="image/*"/>
                 {% endif %}
             </div>
-            {% for f in user_form %}
-                <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                {% render_field f placeholder=f.label class+="form-control" %}
-                {% for error in f.errors %}
-                    <p class="text-danger">{{ error }}</p>
-                {% endfor %}
-            {% endfor %}
-            {% for f in profile_form %}
-                {% if f.field.widget.input_type == 'select' %}
-                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                    <select class="custom-select" id="{{ f.id_for_label }}" name="{{ f.name }}"
-                            aria-label="Select gender">
-                        {% for value, select_item in f.field.choices %}
-                            {% if f.initial == value %}
-                                <option selected value="{{ value }}">{{ select_item }}</option>
-                            {% else %}
-                                <option value="{{ value }}">{{ select_item }}</option>
-                            {% endif %}
-                        {% endfor %}
-                        {% for error in f.errors %}
-                            <p class="text-danger">{{ error }}</p>
-                        {% endfor %}
-                    </select>
-                    {% for error in f.errors %}
-                        <p class="text-danger">{{ error }}</p>
-                    {% endfor %}
-                    <p class="text-danger">{{ f.field.errors }}</p>
-                {% elif f.label != 'Avatar' %}
-                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>
-                    {% render_field f placeholder=f.label class+="form-control" %}
-                    {% for error in f.errors %}
-                        <p class="text-danger">{{ error }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
+            {% generate_editable_profile_fields user_form %}
+            {% generate_editable_profile_fields profile_form %}
+            {#            {% for f in user_form %}#}
+            {#                <label for="{{ f.id_for_label }}">{{ f.label }}</label>#}
+            {#                {% render_field f placeholder=f.label class+="form-control" %}#}
+            {#                {% for error in f.errors %}#}
+            {#                    <p class="text-danger">{{ error }}</p>#}
+            {#                {% endfor %}#}
+            {#            {% endfor %}#}
+            {#            {% for f in profile_form %}#}
+            {#                {% if f.field.widget.input_type == 'select' %}#}
+            {#                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>#}
+            {#                    <select class="custom-select" id="{{ f.id_for_label }}" name="{{ f.name }}"#}
+            {#                            aria-label="select gender">#}
+            {#                        {% for value, select_item in f.field.choices %}#}
+            {#                            {% if f.initial == value %}#}
+            {#                                <option selected value="{{ value }}">{{ select_item }}</option>#}
+            {#                            {% else %}#}
+            {#                                <option value="{{ value }}">{{ select_item }}</option>#}
+            {#                            {% endif %}#}
+            {#                        {% endfor %}#}
+            {#                        {% for error in f.errors %}#}
+            {#                            <p class="text-danger">{{ error }}</p>#}
+            {#                        {% endfor %}#}
+            {#                    </select>#}
+            {#                    {% for error in f.errors %}#}
+            {#                        <p class="text-danger">{{ error }}</p>#}
+            {#                    {% endfor %}#}
+            {#                    <p class="text-danger">{{ f.field.errors }}</p>#}
+            {#                {% elif f.label == 'Bio' %}#}
+            {#                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>#}
+            {#                    <textarea name="{{ f.name }}" placeholder="{{ f.label }}" cols="40" rows="5" class="form-control" id="{{ f.id_for_label }}">{{ f.initial }}</textarea>#}
+            {#                {% elif f.label != 'Avatar' %}#}
+            {#                    <label for="{{ f.id_for_label }}">{{ f.label }}</label>#}
+            {#                    {% render_field f placeholder=f.label class+="form-control" %}#}
+            {#                    {% for error in f.errors %}#}
+            {#                        <p class="text-danger">{{ error }}</p>#}
+            {#                    {% endfor %}#}
+            {#                {% endif %}#}
+            {#            {% endfor %}#}
         </fieldset>
         <div class="form-group mt-4">
-            <button class="btn btn-info" type="submit">Update Profile</button>
-            <a href="{{ user.get_absolute_url }}">
-                <button class="btn btn-outline-success" type="submit">Return</button>
-            </a>
+            <button class="btn btn-outline-success" type="submit">Update Profile</button>
         </div>
     </form>
+    <a href="{{ user.get_absolute_url }}">
+        <button class="btn btn-dark" type="submit">Return</button>
+    </a>
 {% endblock content %}
 
 {% block extra_js_links %}
