@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.template.defaultfilters import slugify
 
 from .validators import validate_isbn, validate_topic
+from .utils import count_book_pages
 
 User = get_user_model()
 
@@ -47,13 +48,13 @@ class Book(models.Model):
         (UKRAINE, 'Ukrainian'),
         (POLAND, 'Polish'),
     ]
-
+    models.ImageField()
     title = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(unique=True, verbose_name='SLUG')
-    content = models.TextField(null=True, verbose_name='Описание')
+    content = models.TextField(verbose_name='Описание')
     cover = models.ImageField(upload_to='covers/', blank=True, null=True, verbose_name='Обложка')
-    pdf = models.FileField(max_length=150, upload_to='books/', blank=True, null=True, verbose_name='PDF')
     total_pages = models.PositiveIntegerField(blank=True, null=True, verbose_name='Количество страниц')
+    pdf = models.FileField(max_length=150, upload_to='books/', verbose_name='PDF')
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=25, verbose_name='Язык')
     published_date = models.DateTimeField(auto_now_add=True, verbose_name='Опубликовано')
     isbn = models.CharField(blank=True, max_length=30, validators=[validate_isbn], verbose_name='ISBN')
@@ -63,7 +64,11 @@ class Book(models.Model):
     author = models.ForeignKey(
         Author, default='unknown', on_delete=models.SET_DEFAULT, related_name='books', verbose_name='Автор книги'
     )
-    topics = models.ManyToManyField(Topic, related_name='select_books', verbose_name='Топики')
+    topics = models.ManyToManyField(
+        Topic,
+        related_name='select_books',
+        verbose_name='Топики'
+    )
 
     class Meta:
         verbose_name = 'Книга'
@@ -79,7 +84,8 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        return super().save(*args, **kwargs)
+        self.total_pages = count_book_pages(self.pdf)
+        super().save(*args, **kwargs)
 
 
 class CommentBook(models.Model):

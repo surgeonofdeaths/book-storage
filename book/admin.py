@@ -5,13 +5,15 @@ from .models import Author, Topic, Book
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'user', 'author', 'language']
+    list_display = ['title', 'user', 'author', 'language', 'total_pages']
     list_editable = ['language']
     list_per_page = 10
     list_display_links = ['title', 'user', 'author']
     search_fields = ['title', 'user', 'author']
     prepopulated_fields = {'slug': ('title', )}
     ordering = ['title', 'author', 'user']
+    exclude = ['total_pages']
+    readonly_fields = ['total_pages']
 
 
 @admin.register(Author)

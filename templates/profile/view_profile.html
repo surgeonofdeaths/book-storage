@@ -26,7 +26,7 @@
                                  alt="{{ shown_user.username }}"
                                  class="rounded img-fluid" style="width: 150px;">
                             <h5 class="my-3">{{ shown_user.username }}</h5>
-                            <p class="text-muted">Last Visit: {{ shown_user.last_login|date:"d\.m\.Y" }}</p>
+                            <p class="text-muted">Last visit: {{ shown_user.last_login|date:"d\.m\.Y" }}</p>
                             <p class="text-muted mb-3">Joined: {{ shown_user.date_joined|date:"d\.m\.Y" }}</p>
                             <div class="d-flex justify-content-center mb-2">
                                 {% if user == shown_user %}
