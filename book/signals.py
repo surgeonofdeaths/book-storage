@@ -11,7 +11,7 @@ from .models import Book
 
 @receiver(post_save, sender=Book)
 def first_page_to_cover(sender, instance, created, **kwargs):
-    if created:
+    if not instance.cover:
         path_to_poppler = r'C:\Program Files\poppler-23.01.0\Library\bin'
         upload_to = settings.BASE_DIR / 'uploads' / 'covers'
         cover = convert_from_path(

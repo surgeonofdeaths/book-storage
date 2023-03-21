@@ -15,17 +15,18 @@
                     {% endif %}
                 </a>
                 <div class="postcard__text t-dark">
-                    <h1 class="postcard__title blue"><a href="#"></a></h1>
+                    <h1 class="postcard__title blue text-center"><a
+                            href="{{ book.get_absolute_url }}">{{ book.title }}</a></h1>
                     <div class="postcard__subtitle small">
                         <time datetime="{{ book.published_date }}">
                             <i class="fas fa-calendar-alt mr-2"></i>{{ book.published_date|date:"M d, Y" }}
                         </time>
                     </div>
                     <div class="postcard__bar"></div>
-                    <div class="postcard__preview-txt">{{ book.content|truncatewords:50 }}
+                    <div class="postcard__preview-txt">{{ book.content|truncatewords:60 }}
                     </div>
                     <ul class="postcard__tagbox">
-                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+{#                        <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>#}
                         {% for topic in book.topics.all %}
                             <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ topic }}</li>
                         {% endfor %}
@@ -38,28 +39,5 @@
                 </div>
             </article>
         {% endfor %}
-
-        {#    {% for book in books %}#}
-        {#        <div class="container-fluid mt-5">#}
-        {#            <div class="card" style="width: 25rem;">#}
-        {#                <img src="{{ book.cover.url }}" class="card-img-top" alt="{{ book.title }}">#}
-        {#                <div class="card-body">#}
-        {#                    <h5 class="card-title">{{ book.title}}</h5>#}
-        {#                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the#}
-        {#                        card's content.</p>#}
-        {#                </div>#}
-        {#                <ul class="list-group list-group-flush">#}
-        {#                    <li class="list-group-item text-primary">Date: {{ book.published_date|date:"d"}}</li>#}
-        {#                    <li class="list-group-item text-primary">Language: <span class="text-uppercase">{{ book.language }}</span></li>#}
-        {#                    <li class="list-group-item"><span class="text-primary">Pages: {{ book.total_pages}}</span></li>#}
-        {#                </ul>#}
-        {#                <div class="card-body btn btn-outline-warning text-center">#}
-        {#                    <a href="{{ book.pdf.url }}" class="card-link text-capitalize link-success text-decoration-none">#}
-        {#                        {{ book.title }}#}
-        {#                    </a>#}
-        {#                </div>#}
-        {#            </div>#}
-        {#        </div>#}
-        {#        <hr>#}
-        {#    {% endfor %}#}
+    </div>
 {% endblock %}

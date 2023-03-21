@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="mb-2">
+        <h3 class="card-body text-center alert alert-danger">
+            Are you sure you want to delete this book?
+        </h3>
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    </div>
+    <a role="button" class="btn btn-success" href="{% url 'book_edit' book.slug %}">Return</a>
+
+{% endblock content %}

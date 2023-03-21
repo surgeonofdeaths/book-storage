@@ -16,14 +16,21 @@
             <div class="postcard__preview-txt">{{ book.content }}
             </div>
             <ul class="postcard__tagbox">
-                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>
+                {#                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>#}
                 {% for topic in book.topics.all %}
                     <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ topic }}</li>
                 {% endfor %}
                 <span class="blank"></span>
-                <li class="tag__item play blue">
-                    <a href="{{ book.pdf.url }}"><i class="fa fa-book mr-2"></i>Read online</a>
-                </li>
+            </ul>
+            <ul class="postcard__tagbox">
+                <a href="{{ book.pdf.url }}" class="mr-2">
+                    <button class="btn btn-success">Read online</button>
+                </a>
+                {% if user == book.user %}
+                    <a href="{% url 'book_edit' book.slug %}">
+                        <button class="btn btn-outline-primary">Edit</button>
+                    </a>
+                {% endif %}
             </ul>
         </div>
     </article>

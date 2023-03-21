@@ -1,8 +1,11 @@
-from django.views.generic import TemplateView, ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Book
 from common.utils import DataMixin
+from .mixins import BookPermissionMixin
+
+from .models import Book
 
 
 class HomeTemplateView(DataMixin, TemplateView):
@@ -34,7 +37,7 @@ class BookDetailView(LoginRequiredMixin, DataMixin, DetailView):
     template_name = 'book/book_detail.html'
 
     def get_context_data(self, **kwargs):
-        new_context = {'title': self.request.POST, 'selected': 'books'}
+        new_context = {'title': kwargs.get('object').title, 'selected': 'books'}
         context = super().get_context_data(**new_context, **kwargs)
         return context
 
@@ -44,5 +47,32 @@ class AboutTemplateView(DataMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         new_context = {'title': 'About', 'selected': 'about'}
+        context = super().get_context_data(**new_context, **kwargs)
+        return context
+
+
+class EditBookUpdateView(LoginRequiredMixin, BookPermissionMixin, DataMixin, UpdateView):
+    model = Book
+    template_name = 'book/book_edit.html'
+    fields = (
+        'title', 'content', 'cover', 'total_pages', 'pdf', 'language', 'isbn', 'topics'
+    )
+
+    def get_context_data(self, **kwargs):
+        new_context = {'title': f'Edit "{self.object.title}"', 'selected': 'books'}
+        context = super().get_context_data(**new_context, **kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('book_detail', kwargs={'slug': self.object.slug})
+
+
+class DeleteBookView(LoginRequiredMixin, BookPermissionMixin, DataMixin, DeleteView):
+    model = Book
+    template_name = 'book/book_delete.html'
+    success_url = reverse_lazy('books')
+
+    def get_context_data(self, **kwargs):
+        new_context = {'title': 'Are you sure you want to delete this book?', 'selected': 'books'}
         context = super().get_context_data(**new_context, **kwargs)
         return context

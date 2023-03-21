@@ -48,7 +48,6 @@ class Book(models.Model):
         (UKRAINE, 'Ukrainian'),
         (POLAND, 'Polish'),
     ]
-    models.ImageField()
     title = models.CharField(max_length=200, verbose_name='Название')
     slug = models.SlugField(unique=True, verbose_name='SLUG')
     content = models.TextField(verbose_name='Описание')

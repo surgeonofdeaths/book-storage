@@ -2,7 +2,6 @@ from django.contrib.messages import constants as messages
 
 from pathlib import Path
 
-from django.urls import reverse
 from environs import Env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     # 3rd party
+    'django_cleanup.apps.CleanupConfig',
     'widget_tweaks',
     'debug_toolbar',
     'crispy_forms',
