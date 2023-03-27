@@ -1,6 +1,3 @@
-from django.template.defaultfilters import slugify
-from django.db import models
-
 from copy import deepcopy
 
 
@@ -8,6 +5,7 @@ header_menu = [
     {'title': 'Home', 'url': 'home', 'selected': 0},
     {'title': 'About', 'url': 'about', 'selected': 0},
     {'title': 'Books', 'url': 'books', 'selected': 0},
+    {'title': 'Publish Book', 'url': 'publish_book', 'selected': 0},
 ]
 
 

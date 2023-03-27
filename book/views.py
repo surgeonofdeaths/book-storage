@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, DetailView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from common.utils import DataMixin
@@ -55,7 +55,7 @@ class EditBookUpdateView(LoginRequiredMixin, BookPermissionMixin, DataMixin, Upd
     model = Book
     template_name = 'book/book_edit.html'
     fields = (
-        'title', 'content', 'cover', 'total_pages', 'pdf', 'language', 'isbn', 'topics'
+        'title', 'content', 'cover', 'total_pages', 'pdf', 'language', 'isbn', 'topics', 'author'
     )
 
     def get_context_data(self, **kwargs):
@@ -76,3 +76,20 @@ class DeleteBookView(LoginRequiredMixin, BookPermissionMixin, DataMixin, DeleteV
         new_context = {'title': 'Are you sure you want to delete this book?', 'selected': 'books'}
         context = super().get_context_data(**new_context, **kwargs)
         return context
+
+
+class PublishBookCreateView(LoginRequiredMixin, DataMixin, CreateView):
+    model = Book
+    template_name = 'book/book_publish.html'
+    fields = (
+        'title', 'content', 'cover', 'total_pages', 'pdf', 'language', 'isbn', 'topics', 'author'
+    )
+
+    def get_context_data(self, **kwargs):
+        new_context = {'title': 'Publish Book', 'selected': 'book_publish'}
+        context = super().get_context_data(**new_context, **kwargs)
+        return context
+
+
+    # def get_success_url(self):
+    #     return reverse_lazy('book_detail', kwargs={'slug': self.})

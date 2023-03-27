@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     # 3rd party
+    'rest_framework',
     'django_cleanup.apps.CleanupConfig',
     'widget_tweaks',
     'debug_toolbar',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'book.apps.BookConfig',
     'user_profile.apps.UserProfileConfig',
+    'api.apps.ApiConfig',
 ]
 
 MIDDLEWARE = [

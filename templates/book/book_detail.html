@@ -16,7 +16,12 @@
             <div class="postcard__preview-txt">{{ book.content }}
             </div>
             <ul class="postcard__tagbox">
-                {#                <li class="tag__item"><i class="fas fa-clock mr-2"></i>55 mins.</li>#}
+                <li class="tag__item"><i class="fa fa-globe mr-2"></i>{{ book.language }}</li>
+                <li class="tag__item"><i class="fa fa-user mr-2"></i>{{ book.author }}</li>
+                <li class="tag__item"><i class="fa fa-user mr-2"></i>{{ book.user }}</li>
+                <li class="tag__item"><i class="fa fa-book mr-2"></i>{{ book.total_pages }} c.</li>
+            </ul>
+            <ul class="postcard__tagbox">
                 {% for topic in book.topics.all %}
                     <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ topic }}</li>
                 {% endfor %}
