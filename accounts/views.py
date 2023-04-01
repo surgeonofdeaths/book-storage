@@ -19,4 +19,3 @@ class CustomLoginView(DataMixin, LoginView):
         new_context = {'title': 'Login', 'selected': 'account_login'}
         context = super().get_context_data(**new_context, **kwargs)
         return context
-

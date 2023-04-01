@@ -1,12 +1,16 @@
+import io
+
 from rest_framework import serializers
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
 
-from book.models import Book
+from book.models import Book, Author
 
 
-class BookListSerializer(serializers.ModelSerializer):
+class BookSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Book
-        fields = (
-            'title', 'slug', 'content', 'cover', 'total_pages', 'pdf', 'language', 'published_date', 'isbn', 'user_id',
-            'author_id', 'topics',
-        )
+        fields = '__all__'
+
