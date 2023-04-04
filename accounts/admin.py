@@ -17,7 +17,7 @@ class CustomUserAdmin(UserAdmin):
     prepopulated_fields = {'slug': ('username',)}
 
     fieldsets = (
-        (None, {"fields": ("username", "slug", "password")}),
+        (None, {"fields": ("username", "password", 'slug')}),
         (_("Personal info"), {"fields": ("first_name", "last_name", "email")}),
         (
             _("Permissions"),
@@ -33,11 +33,12 @@ class CustomUserAdmin(UserAdmin):
         ),
         (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-
     add_fieldsets = (
-        None,
-        {
-            'classes': ('wide',),
-            'fields': ('username', 'slug', 'email', 'password1', 'password2'),
-        },
+        (
+            None,
+            {
+                'classes': ('wide',),
+                'fields': ('username', 'slug', 'password1', 'password2'),
+            },
+        ),
     )

@@ -3,31 +3,41 @@ from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.pagination import PageNumberPagination
 
 from .serializers import BookSerializer
-from .permissions import IsAdminOrRelatedUserCanDelete
+from .permissions import IsAdminOrOwner
 from book.models import Book, CommentBook, Author
+
+
+class BookPagination(PageNumberPagination):
+    page_size = 1
+    page_size_query_param = 'page_size'
+    max_page_size = 2
 
 
 class BookAPIList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = 'slug'
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+    pagination_class = BookPagination
 
 
-class BookAPIUpdate(generics.UpdateAPIView):
+class BookAPIUpdate(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = 'slug'
+    permission_classes = (IsAdminOrOwner,)
 
 
-class BookAPIDestroy(generics.DestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-    lookup_field = 'slug'
-    permission_classes = (IsAdminOrRelatedUserCanDelete, )
+# class BookAPIDestroy(generics.DestroyAPIView):
+#     queryset = Book.objects.all()
+#     serializer_class = BookSerializer
+#     lookup_field = 'slug'
+#     permission_classes = (IsAdminOrOwnerOrReadOnly,)
 
 
 # class BookViewSet(viewsets.ModelViewSet):

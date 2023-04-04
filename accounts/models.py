@@ -15,8 +15,7 @@ class CustomUser(AbstractUser):
     slug = models.SlugField(null=True, unique=True, verbose_name='SLUG')
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.slug = slugify(self.username)
+        self.slug = slugify(self.username)
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

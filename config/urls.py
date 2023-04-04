@@ -10,6 +10,8 @@ urlpatterns = [
     path('', include('book.urls')),
     path('profile/', include('user_profile.urls')),
     path('api/v1/', include('api.urls')),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 ]
 
 if settings.DEBUG:
