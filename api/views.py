@@ -9,13 +9,8 @@ from rest_framework.pagination import PageNumberPagination
 
 from .serializers import BookSerializer
 from .permissions import IsAdminOrOwner
+from .pagination import BookPagination
 from book.models import Book, CommentBook, Author
-
-
-class BookPagination(PageNumberPagination):
-    page_size = 1
-    page_size_query_param = 'page_size'
-    max_page_size = 2
 
 
 class BookAPIList(generics.ListCreateAPIView):
